@@ -9,28 +9,20 @@ def crawl(url):
     response = urllib.request.urlopen(url)
     html_bytes = response.read()
     soup = BeautifulSoup(html_bytes,'html.parser')
-    #print(soup.prettify())
     for link in soup.findAll('a'):
         l = link.get('href')
-        print(l)
-        if 0:
-            continue
-            print("B")
-        #crawl(l)
-        q.put(l)
+        if l != None:
+            if "http://www.iitg.ernet" in l and ".pdf" not in l:
+                q.put(l)
+                print(l+"is addd to queue")
+    while not q.empty():
+        link_to_crawl = q.get()
+        print(link_to_crawl)
+        crawl(link_to_crawl)
 
-while not q.empty():
-    print(q.get())
 
-r = Queue()
-print("Creating queue")
-r.put("abhi1")
-r.put("abhi2")
-r.put("abhi3")
-r.put("abhi4")
-print(r.get())
-print(r.get())
-print(r.get())
 
 
 crawl("http://iitg.ernet.in")
+#crawl("http://www.iitg.ernet.in/director/dirmsg.html")
+
