@@ -1,14 +1,17 @@
+#!/usr/bin/python3
+
 import setlog
 from html.parser import HTMLParser
 from urllib.request import urlopen
 from urllib import parse
 
-logger=setlog.logger
+logger = setlog.logger
 logger.debug("global exe")
+
+
 # We are going to create a class called LinkParser that inherits some
 # methods from HTMLParser which is why it is passed into the definition
 class LinkParser(HTMLParser):
-
     def __init__(self):
         logger.debug("init")
         pass
@@ -18,9 +21,9 @@ class LinkParser(HTMLParser):
     def handle_starttag(self, tag, attrs):
         # We are looking for the begining of a link. Links normally look
         # like <a href="www.someurl.com"></a>
-        if tag=='a':
+        if tag == 'a':
             for (key, value) in attrs:
-                if key=='href':
+                if key == 'href':
                     # We are grabbing the new URL. We are also adding the
                     # base URL to it. For example:
                     # www.netinstructions.com is the base and
@@ -45,7 +48,7 @@ class LinkParser(HTMLParser):
         # Make sure that we are looking at HTML and not other things that
         # are floating around on the internet (such as
         # JavaScript files, CSS, or .PDFs for example)
-        if response.getheader('Content-Type')=='text/html':
+        if response.getheader('Content-Type') == 'text/html':
             htmlBytes = response.read()
             # Note that feed() handles Strings well, but not bytes
             # (A change from Python 2.x to Python 3.x)
@@ -53,14 +56,15 @@ class LinkParser(HTMLParser):
             self.feed(htmlString)
             return htmlString, self.links
         else:
-            return "",[]
+            return "", []
 
-#url="http://www.iitg.ernet.in"
-#word="pdf"
-#maxPages=200
+
+# url="http://www.iitg.ernet.in"
+# word="pdf"
+# maxPages=200
 # And finally here is our spider. It takes in an URL, a word to find,
 # and the number of pages to search through before giving up
-def spider(url, word , maxPages):
+def spider(url, word, maxPages):
     pagesToVisit = [url]
     numberVisited = 0
     foundWord = False
@@ -72,7 +76,7 @@ def spider(url, word , maxPages):
     # and we return a set of links from that web page
     # (this is useful for where to go next)
     while numberVisited < maxPages and pagesToVisit != [] and not foundWord:
-        numberVisited = numberVisited +1
+        numberVisited = numberVisited + 1
         # Start from the beginning of our collection of pages to visit:
         url = pagesToVisit[0]
         pagesToVisit = pagesToVisit[1:]
@@ -80,7 +84,7 @@ def spider(url, word , maxPages):
             print(numberVisited, "Visiting:", url)
             parser = LinkParser()
             data, links = parser.getLinks(url)
-            if data.find(word)>-1:
+            if data.find(word) > -1:
                 foundWord = True
                 # Add the pages that we visited to the end of our collection
                 # of pages to visit:
