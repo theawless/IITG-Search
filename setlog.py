@@ -5,12 +5,12 @@ import logging
 logger = logging.getLogger()
 
 
-def setupLogger():
+def setuplogger():
     # setting format of log
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
     logger.setLevel(logging.DEBUG)
     # file location
-    debug_log = '/poop.txt'
+    debug_log = 'log.txt'
 
     # adding handler for console logs
     sh = logging.StreamHandler()
@@ -25,4 +25,4 @@ def setupLogger():
     logger.debug('SETLOG logger setup done')
 
 
-setupLogger()
+setuplogger()

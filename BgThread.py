@@ -4,37 +4,29 @@ import setlog
 import threading
 import time
 
-logger = setlog.logger()
+logger = setlog.logger
 
 
 class BackgroundThread(threading.Thread):
     def __init__(self, instance):
+
         threading.Thread.__init__(self)
-        self.pluginClass = instance
+        self.crawler_instance = instance
 
     def run(self):
         logger.debug(self.name + " run thread")
-        self.pluginClass.bgCallHandler()
+        self.callhandler()
 
-    def stop(self):
-        logger.debug(self.name + " stop thread")
+    def callhandler(self):
+        logger.debug("Inside bgcallhandler")
+        for i in range(1, 100):
+            self.crawler_instance.list_of_links_to_crawl.put(self.name+" "+str(i))
+            print(self.name+" "+str(i))
 
-
-'''def _callrecog(self):
-    # Calls recognizer and gets the text output
-    textout = recogSpeech.recog(1)
-    _state = statesMod.decide_state(textout)
-    return textout, _state
 '''
-
-
-def bgcallhandler(self):
-    # Based on output by the callRecog we proceed further
-    logger.debug("Inside bgcallhandler")
-    if not self.thread_is_running:
-        logger.debug("Thread not running")
-        return
-    # run async
-    else:
-        logger.debug("End Background Call Handler")
-        return
+    def callhandler(self):
+        logger.debug("Inside bgcallhandler")
+        for i in range(1, 100):
+            self.crawler_instance.list_of_links_to_crawl.put(self.name+" "+str(i))
+            print(self.name+" "+str(i))
+'''
