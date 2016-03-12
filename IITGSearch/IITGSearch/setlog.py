@@ -1,8 +1,6 @@
-#!/usr/bin/python3
-
 import logging
 
-logger = logging.getLogger()
+logger = logging.getLogger('IITG')
 
 
 def setuplogger():

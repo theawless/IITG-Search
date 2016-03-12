@@ -16,24 +16,24 @@ class IITGSpider(scrapy.Spider):
         "http://intranet.iitg.ernet.in",
         "http://local.iitg.ernet.in"
     ]
-    crawledLinks = set()
 
     def parse(self, response):
         hxs = HtmlXPathSelector(response)
         links = hxs.select("//a/@href").extract()
 
         # We stored already crawled links in this list
-        # crawledLinks = []
+        crawledLinks = []
+
         # Pattern to check proper link
         # linkPattern = re.compile("^(?:ftp|http|https):\/\/(?:[\w\.\-\+]+:{0,1}[\w\.\-\+]*@)?(?:[a-z0-9\-\.]+)(?::[0-9]+)?(?:\/|\/(?:[\w#!:\.\?\+=&amp;%@!\-\/\(\)]+)|\?(?:[\w#!:\.\?\+=&amp;%@!\-\/\(\)]+))?$")
 
         for link in links:
-            _link = self.abs_url(link, response)
+            link = self.abs_url(link, response)
             # If it is a proper link and is not checked yet, yield it to the Spider
-            if _link not in IITGSpider.crawledLinks:
-                IITGSpider.crawledLinks.add(_link)
-                logger.debug('  ' + _link)
-                yield Request(_link, self.parse)
+            if link not in crawledLinks:
+                crawledLinks.append(link)
+                logger.debug('  ' + link)
+                yield Request(link, self.parse)
 
     def abs_url(self, url, response):
         base = response.xpath('//head/base/@href').extract()
