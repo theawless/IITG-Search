@@ -5,7 +5,7 @@ logger = logging.getLogger('IITG')
 
 def setuplogger():
     # setting format of log
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter('%(message)s')
     logger.setLevel(logging.DEBUG)
     # file location
     debug_log = 'log.txt'
