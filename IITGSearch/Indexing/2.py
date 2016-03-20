@@ -49,8 +49,7 @@ def indexing(thread_name, i, j):
 			break
 		count = count + 1
 		url = line
-		if ".pdf" not in url and ".jpg" not in url and ".doc" not in url:
-			#print line
+		if ".pdf" not in url and ".jpg" not in url and ".doc" not in url and ".c" not in url and ".cpp" not in url and ".tar" not in url and "zip" not in url and ".exe" not in url and ".asm" not in url and ".asm" not in url:
 			try:
 				http = urllib3.PoolManager()
 				r = http.request('GET', url)
@@ -74,8 +73,8 @@ def indexing(thread_name, i, j):
 			#		results = searcher.search(query)
 			#		print results
 			except Exception as e:
-				print "Caught exception e"
-		print str(count) + "In" + thread_name
+				print "Caught exception e at " + url 
+		print str(count) + " in " + thread_name + " URL:" + url
 
 
 
@@ -83,10 +82,10 @@ def indexing(thread_name, i, j):
 # Create new threads
 a = []
 a0=0
-for i in range(1,1000):
-	th = myThread(1, "Thread-" + str(i), a0 + 1, a0 + 35)
+for i in range(1,3000):
+	th = myThread(1, "Thread-" + str(i), a0 + 1, a0 + 10)
 	a.append(th)
-	a0 += 35
+	a0 += 10
 
 
 #thread1 = myThread(1, "Thread-1", 1, 6000)
@@ -97,7 +96,7 @@ for i in range(1,1000):
 #thread6 = myThread(6, "Thread-6", 30000, 35000)
 
 # Start new Threads
-for i in range(1,1000):
+for i in range(1,3000-1):
 	a[i].start()
 
 #thread1.start()
@@ -109,7 +108,9 @@ for i in range(1,1000):
 
 
 # Add threads to thread list
-for i in range(1,1000):
+threads = []
+print "Appending to threads*******************************************************************************"
+for i in range(1,3000-1):
 	threads.append(a[i])
 
 #threads.append(thread1)
@@ -120,8 +121,10 @@ for i in range(1,1000):
 #threads.append(thread6)
 
 # Wait for all threads to complete
-for t in threads:
-    t.join()
+print "Joining threads*******************************************************************************"
+for i in range(1,3000-1):
+    a[i].join()
+print "Joining of threads completed*******************************************************************************"
 
 writer.commit()
 
