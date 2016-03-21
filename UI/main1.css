@@ -1,0 +1,117 @@
+
+	@font-face {
+	  font-family: 'Pacifico';
+	  src: url('Pacifico.ttf') format('truetype'); /* Modern Browsers */
+	}
+	@font-face {
+	  font-family: 'Roboto-Medium';
+	  src: url('Roboto-Medium.ttf') format('truetype'); /* Modern Browsers */
+	}
+	@font-face {
+	  font-family: 'Roboto-Regular';
+	  src: url('Roboto-Regular.ttf') format('truetype'); /* Modern Browsers */
+	}
+	.color{
+	color:#0054a6z;
+	}
+	*{
+	font-family: Roboto-Regular;
+}
+	#submit{
+		text-align:center;
+	}
+	#submitButton:hover {
+  color: #fff;
+  background-color: #2b94d2;
+  border-color: #2b94d2;
+}
+	#submitButton{
+			/*height:100%; 
+		    width:40%; 
+		    position:relative;
+		    top:50%; 
+		    left:30%;*/
+		    border-radius:0; 
+		    border:1px solid Black;
+		    background:Black ;
+		    color: #fff;
+	}	
+	.img{
+		position:absolute; 
+		width:100%; 
+		height:10%;
+		display:block;
+		margin-left:34%;
+		margin-right: auto;
+		z-index: 10;
+		opacity:1.0;
+	}
+	.panel{
+		padding:20px;
+		height:100%;
+		background-color: #fff; 
+		border:2px solid #d1d2d4;
+		outline:1px solid #939597;
+		z-index: -1;
+	}
+	
+	.name{
+		color:Black;
+		font: 30px Roboto-Regular; 
+		text-align:center;
+	}
+	.tag{
+		color:Black;
+		font: 17px Pacifico; 
+		text-align:center;
+	}
+	#developers{
+		display:inline-block; 
+		width:80%; 
+		color:#ffffff;
+		font:15px Roboto Medium;
+		 margin-top:5px;
+	}
+	#footer{
+		bottom:0;
+		width:100%;
+		padding:5px;
+		display:inline-block;
+		background-color: Black;
+	}
+	#progressBar{
+		background-image:none; 
+		background-color:Black;
+	}
+
+	#contact{
+		display:table-cell; 
+		float:right;
+		width:15%;
+		padding:10px;
+		text-align:center;
+		margin-top:auto;
+		margin-bottom:auto;
+		
+		}
+	#status{
+		color:Black;
+	}
+
+	.bgcolor{
+		background-color:#f8f9f9;
+	}
+	.textColor{
+		color:Black; 
+		font: 17px Roboto Regular;
+		}
+	#contactUs{
+		color:#0054a6; 
+		font: 20px Roboto Medium;
+
+
+	}
+a:hover{
+	color:#23527c;
+	text-decoration:none;
+}
