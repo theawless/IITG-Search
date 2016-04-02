@@ -38,7 +38,7 @@ def indexing():
                                     content=unicode(url))
             except Exception as e:
                 print "Caught exception e at " + url
-            print str(count) + " in " + " URL:" + url\
+            print str(count) + " in " + " URL:" + url
 
     writer.commit()
     print "Indexing Completed !"

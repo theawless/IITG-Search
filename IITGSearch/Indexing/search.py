@@ -58,11 +58,10 @@ def check_spelling_error(mistyped_words):
         if corrected.query != query:
             print("Did you mean:", corrected.string)
 
+
 # search1 = search("cse","con")
 # print search1
 
 check_spelling_error("alcher")
 
 # show_all_content()
-
-

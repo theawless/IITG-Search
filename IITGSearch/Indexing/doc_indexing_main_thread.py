@@ -19,16 +19,16 @@ def indexing():
     writer = ix.writer()
     count = 0
 
-    with open('Links/final_links.txt') as fp, open('data_main_thread/text_files/content.txt', 'w+') as f:
+    with open('Links/doc_links.txt') as fp, open('data_main_thread/text_files/doc_content.txt', 'w+') as f:
         for line in fp:
             count += 1
             url = line
             try:
-                response = urllib.urlopen(url)
-                html_content = response.read()
-                soup = BeautifulSoup(html_content)
-                content_text = soup.get_text()
-                print content_text
+                response = urllib2.urlopen(url)
+                fil = open("document.pdf", 'w')
+                fil.write(response.read())
+                fil.close()
+
 
                 f.write(html_content)
 
@@ -38,11 +38,10 @@ def indexing():
                                     content=unicode(url))
             except Exception as e:
                 print "Caught exception e at " + url
-            print str(count) + " in " + " URL:" + url\
+            print str(count) + " in " + " URL:" + url
 
     writer.commit()
     print "Indexing Completed !"
 
 
 indexing()
-
