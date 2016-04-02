@@ -19,7 +19,7 @@ def indexing():
     writer = ix.writer()
     count = 0
 
-    with open('Links/final_links.txt') as fp, open('data_main_thread/text_files/content.txt', 'w+') as f:
+    with open('Final_Links/final_links.txt') as fp, open('data_main_thread/text_files/content.txt', 'w+') as f:
         for line in fp:
             count += 1
             url = line

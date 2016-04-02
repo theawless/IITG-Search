@@ -7,61 +7,76 @@ import string
 import sys, urllib2, urllib, os
 from HTMLParser import HTMLParser
 import urllib
+import time
 from whoosh.qparser import QueryParser
 from whoosh.index import open_dir
 
 
 def search(search_keyword, radio):
-    if radio == "con":
-        ix = open_dir("content_data")
+    start_time = time.time()
+    sel = "content"
     if radio == "pdf":
-        ix = open_dir("pdf_data")
+        sel = "pdf"
     if radio == "image":
-        ix = open_dir("image_data")
+        sel = "image"
     if radio == "repo":
-        ix = open_dir("repo_data")
-    result1 = {}
+        sel = "repo"
+    ix = open_dir("data/" + sel + "_data")
+
+    final_result = dict()
     with ix.searcher() as searcher:
         query = QueryParser("content", ix.schema).parse(search_keyword)
         j = 0
         result = searcher.search(query, limit=None)
+        print result
         for i in result:
-            result1[j] = i['path'][1:]
+            final_result[j] = i['path']
             # print i
             # print i.highlights('content')
             j += 1
-    return result1
+
+    suggestion = check_spelling_error(search_keyword, ix)
+    end_time = time.time()
+
+    final_result['time'] = str(end_time - start_time)
+    final_result['suggestion'] = suggestion
+    return final_result
 
 
-def show_all_content():
-    ix = open_dir("test")
-    result1 = {}
-    with ix.searcher() as searcher:
-        j = 0
-        result = searcher.search(Every('content'))
-        for i in result:
-            result1[j] = i['path'][1:]
-            # print i.highlights('content')
-            print i["path"]
-            # print i["content"]
-            j += 1
-    return result1
-
-
-def check_spelling_error(mistyped_words):
-    ix = open_dir("data")
-    result1 = {}
+def check_spelling_error(mistyped_words, ix):
     query = QueryParser("content", ix.schema).parse(mistyped_words)
     with ix.searcher() as s:
         corrector = s.corrector("title")
         corrected = s.correct_query(query, mistyped_words)
         if corrected.query != query:
-            print("Did you mean:", corrected.string)
+            return corrected.string
 
 
-# search1 = search("cse","con")
-# print search1
+def show_all_content():
+    start_time = time.time()
 
-check_spelling_error("alcher")
+    ix = open_dir("data/pdf_data")
+    final_result = {}
+    with ix.searcher() as searcher:
+        j = 0
+        result = searcher.search(Every('content'))
+        for i in result:
+            final_result[j] = i['path']
+            # print i.highlights('content')
+            # print i["path"]
+            # print i["content"]
+            j += 1
+    suggestion = check_spelling_error("", ix)
+    end_time = time.time()
 
-# show_all_content()
+    final_result['time'] = str(end_time - start_time)
+    final_result['suggestion'] = suggestion
+
+    return final_result
+
+
+search1 = search("Institute", "pdf")
+print search1
+search2 = show_all_content()
+print search2
+# check_spelling_error("alcher")

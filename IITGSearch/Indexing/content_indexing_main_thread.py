@@ -15,11 +15,11 @@ def indexing():
     socket.setdefaulttimeout(timeout)
     ana = analysis.StemmingAnalyzer()
     schema = Schema(title=TEXT(analyzer=ana, spelling=True), path=ID(stored=True), content=TEXT)
-    ix = create_in("data_main_thread", schema)
+    ix = create_in("data/content_data", schema)
     writer = ix.writer()
     count = 0
 
-    with open('Links/final_links.txt') as fp, open('data_main_thread/text_files/content.txt', 'w+') as f:
+    with open('Final_Links/final_links.txt') as fp, open('data/content_data/mytemp/content.txt', 'w+') as f:
         for line in fp:
             count += 1
             url = line
@@ -32,9 +32,9 @@ def indexing():
 
                 f.write(html_content)
 
-                writer.add_document(title=unicode(url, "utf-8"), path=unicode("/" + url, "utf-8"),
+                writer.add_document(title=unicode(url, "utf-8"), path=unicode(url, "utf-8"),
                                     content=unicode(content_text))
-                writer.add_document(title=unicode(url, "utf-8"), path=unicode("/" + url, "utf-8"),
+                writer.add_document(title=unicode(url, "utf-8"), path=unicode(url, "utf-8"),
                                     content=unicode(url))
             except Exception as e:
                 print "Caught exception e at " + url
@@ -45,4 +45,3 @@ def indexing():
 
 
 indexing()
-
