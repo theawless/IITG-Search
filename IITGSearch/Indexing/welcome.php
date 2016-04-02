@@ -8,11 +8,6 @@
 	<link rel="stylesheet" href="bootstrap.css">
 	<link rel="stylesheet" href="main1.css">
 	<link rel="stylesheet" href="style.css">
-
-
-
-
-
 </head>
 <body class='bgcolor'>
 	<div class="container">
@@ -34,9 +29,13 @@
 				</div>
 				<br>
 				<form action="welcome.php" method="post">
-				    Search :
-				    <input type="text" name="search"><br>
-				    <input type="submit">
+				Search :<input id="automplete-5" type="text" name="search"><br>
+				<input type="radio" name="exe" < value="con" >Contents<br>
+				<input type="radio" name="exe" value="pdf">Pdf<br>
+				<input type="radio" name="exe" value="img">Image<br>
+				<input type="radio" name="exe" value="repo">Repo<br>
+
+				<input type="submit">
 				</form>
 		    	<div class="progress" id="progressb" style="display:none; margin:20px auto">
 		    	  <div class="progress-bar progress-bar-striped active" role="progressbar" id="progressBar" aria-valuenow="0"
@@ -55,7 +54,9 @@
 	</div>
 
 <?php 
-$data= $_POST["search"]; 
+$a= $_POST["search"]; 
+$b=$_POST['exe'];
+$data=array($a,$b);
 // Execute the python script with the JSON data 
 $result = shell_exec('python x.py ' . escapeshellarg(json_encode($data)) . ' 2>&1'); 
 // Decode the result 
@@ -64,23 +65,21 @@ $resultData = json_decode($result, true);
 
 $length = count($resultData);
 for($i=1;$i<$length;$i++)
-
-    echo "<a href='$resultData[$i]'>"."$resultData[$i]"."</a>"."<br />" ;
+echo "<a href='$resultData[$i]'>"."$resultData[$i]"."</a>"."<br />" ;
 
 ?> 
 
 
 	<footer class="navbar-default navbar-fixed-bottom" id="footer">
 		<div class = "container" id="developers">
-			<b>Developed By:</b>
-			<span><span class="color">R</span>ajan garg, <span class="color">A</span>bhinav prince, <span class="color">A</span>bhinav singh</span>
+			<b>Developed By:</b><br>
+			Rajan garg<br>
+			Abhinav singh<br>
+			Abhinav prince<br>
 			<br>
-			<b>Design:</b>
-			<span>Raja<span class="color">n</span> Garg</span>
-		</div>
-		<div class = "container" id="contact">
-			<span id='contactUs'><a href="http://goo.gl/forms/F2m0sWZbX2">Contact Us</a></span>
-		</div>
+			<b>Design:</b><br>
+			Rajan garg<br>
+		
 	</footer>
 
 	<script type="text/javascript" src="jquery.js"> ></script>
