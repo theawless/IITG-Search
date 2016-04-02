@@ -8,6 +8,11 @@
 	<link rel="stylesheet" href="bootstrap.css">
 	<link rel="stylesheet" href="main1.css">
 	<link rel="stylesheet" href="style.css">
+
+
+
+
+
 </head>
 <body class='bgcolor'>
 	<div class="container">
@@ -29,9 +34,9 @@
 				</div>
 				<br>
 				<form action="welcome.php" method="post">
-				Search :<input type="text" name="search"><br>
-
-				<input type="submit">
+				    Search :
+				    <input type="text" name="search"><br>
+				    <input type="submit">
 				</form>
 		    	<div class="progress" id="progressb" style="display:none; margin:20px auto">
 		    	  <div class="progress-bar progress-bar-striped active" role="progressbar" id="progressBar" aria-valuenow="0"
@@ -58,60 +63,13 @@ $resultData = json_decode($result, true);
 // This will contain: array('status' => 'Yes!' ---."<br />" ;
 
 $length = count($resultData);
-//for($i=1;$i<=$length;$i++)
+for($i=1;$i<$length;$i++)
 
- //   echo "<a href='$resultData[$i]'>"."$resultData[$i]"."</a>"."<br />" ;
+    echo "<a href='$resultData[$i]'>"."$resultData[$i]"."</a>"."<br />" ;
 
 ?> 
 
 
-<?php
-
-$start=0;
-$limit=8;
-
-if(isset($_GET['id']))
-{
-	$id=$_GET['id'];
-	$start=($id-1)*$limit;
-}
-else{
-	$id=1;
-}
-
-?>
-<ul>
-<?php
-//print 10 items
-for($i=$start;$i<$start+$limit;$i++) 
-echo "<a href='$resultData[$i]'>"."$resultData[$i]"."</a>"."<br />" ; 
-?>
-</ul>
-<?php
-$rows=$length;
-$total=ceil($rows/$limit);?>
-
-<?php if($id>1)
-{
-	//Go to previous page to show previous 10 items. If its in page 1 then it is inactive
-	echo "<li><a href='?id=".($id-1)."' class='button'>PREVIOUS</a></li>";
-}
-if($id!=$total)
-{
-	////Go to previous page to show next 10 items.
-	echo "<li><a href='?id=".($id+1)."' class='button'>NEXT</a></li>";
-}
-?>
-
-<?php
-//show all the page link with page number. When click on these numbers go to particular page. 
-		for($i=1;$i<=$total;$i++)
-		{
-			if($i==$id) { echo "<li class='current'>".$i."</li>"; }
-			
-			else { echo "<li><a href='?id=".$i."'>".$i."</a></li>"; }
-		}
-?>
 	<footer class="navbar-default navbar-fixed-bottom" id="footer">
 		<div class = "container" id="developers">
 			<b>Developed By:</b>

@@ -3,6 +3,7 @@
 <html>
 <head>
 
+
 	<meta charset="UTF-8">  
 	<title>Web Crawler</title>
 	<link rel="stylesheet" href="bootstrap.css">
@@ -21,7 +22,19 @@
                minLength: 2
             });
          });
-      </script> 
+      </script>
+
+
+      <script type="text/javascript">
+        var recognition = new SpeechRecognition();
+        recognition.onresult = function(event) {
+          if (event.results.length > 0) {
+            q.value = event.results[0][0].transcript;
+            q.form.submit();
+          }
+        }
+      </script>
+
 </head>
 <body class='bgcolor'>
          
@@ -44,9 +57,9 @@
 				</div>
 				<br>
 				<form action="welcome.php" method="post">
-				Search :<input id="automplete-5" type="text" name="search"><br>
+				    Search :<input id="automplete-5" type="text" name="search"><br>
 
-				<input type="submit">
+				    <input type="submit">
 				</form>
 		    	<div class="progress" id="progressb" style="display:none; margin:20px auto">
 		    	  <div class="progress-bar progress-bar-striped active" role="progressbar" id="progressBar" aria-valuenow="0"
