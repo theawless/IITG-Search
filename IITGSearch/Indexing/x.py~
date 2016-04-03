@@ -11,7 +11,7 @@ except:
     sys.exit(1)
 
 # Generate some data to send to PHP
-results = search(search_keyword,radio)
+results = search(search_keyword)
 # for i in results:
 #    result[i] =  i['path']
 
