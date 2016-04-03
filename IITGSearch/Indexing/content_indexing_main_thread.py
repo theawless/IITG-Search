@@ -14,7 +14,8 @@ def indexing():
     timeout = 3
     socket.setdefaulttimeout(timeout)
     ana = analysis.StemmingAnalyzer()
-    schema = Schema(title=TEXT(analyzer=ana, spelling=True), path=ID(stored=True), content=TEXT)
+    schema = Schema(title=TEXT(analyzer=ana, spelling=True), path=ID(stored=True), content=TEXT,
+                    data=TEXT(spelling=True, analyzer=ana, stored=True))
     ix = create_in("data/content_data", schema)
     writer = ix.writer()
     count = 0
@@ -33,13 +34,14 @@ def indexing():
                 f.write(html_content)
 
                 writer.add_document(title=unicode(url, "utf-8"), path=unicode(url, "utf-8"),
-                                    content=unicode(content_text))
+                                    content=unicode(content_text), data=unicode(content_text))
                 writer.add_document(title=unicode(url, "utf-8"), path=unicode(url, "utf-8"),
-                                    content=unicode(url))
+                                    content=unicode(url), data=unicode(url))
             except Exception as e:
-                print "Caught exception e at " + url
+                print "Caught exception e at " + url + "exception : " + str(e)
             print str(count) + " in " + " URL:" + url
-
+            # if count == 100:
+            #    break
     writer.commit()
     print "Indexing Completed !"
 
