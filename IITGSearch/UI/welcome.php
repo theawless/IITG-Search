@@ -3,7 +3,7 @@
 <html>
 <head>
 
-	<meta charset="UTF-8">  
+	<meta charset="UTF-8">
 	<title>Web Crawler</title>
 	<link rel="stylesheet" href="bootstrap.css">
 	<link rel="stylesheet" href="main1.css">
@@ -13,9 +13,9 @@
 	<div class="container">
 		<div class="row">
 		<div class="col-md-4 col-md-offset-4" style="padding-bottom:50px">
-		
-			<div class="img">		
-					
+
+			<div class="img">
+
 			</div>
 			<br><br>
 			<div class="outer">
@@ -29,13 +29,12 @@
 				</div>
 				<br>
 				<form action="welcome.php" method="post">
-				Search :<input id="automplete-5" type="text" name="search"><br>
-				<input type="radio" name="exe" < value="con" >Contents<br>
-				<input type="radio" name="exe" value="pdf">Pdf<br>
-				<input type="radio" name="exe" value="img">Image<br>
-				<input type="radio" name="exe" value="repo">Repo<br>
-
-				<input type="submit">
+                    Search :<input id="automplete-5" type="text" name="search"><br>
+                    <input type="radio" name="exe" value="con" >Contents<br>
+                    <input type="radio" name="exe" value="pdf">Pdf<br>
+                    <input type="radio" name="exe" value="img">Image<br>
+                    <input type="radio" name="exe" value="repo">Repo<br>
+				    <input type="submit">
 				</form>
 		    	<div class="progress" id="progressb" style="display:none; margin:20px auto">
 		    	  <div class="progress-bar progress-bar-striped active" role="progressbar" id="progressBar" aria-valuenow="0"
@@ -53,21 +52,22 @@
 		</div>
 	</div>
 
-<?php 
-$a= $_POST["search"]; 
+<?php
+$a= $_POST["search"];
 $b=$_POST['exe'];
 $data=array($a,$b);
-// Execute the python script with the JSON data 
-$result = shell_exec('python x.py ' . escapeshellarg(json_encode($data)) . ' 2>&1'); 
-// Decode the result 
-$resultData = json_decode($result, true); 
+// Execute the python script with the JSON data
+//$result = shell_exec('python x.py ' . escapeshellarg(json_encode($data)) . ' 2>&1');
+$result = exec('python x.py '.$a.' '.$b);
+// Decode the result
+$resultData = json_decode($result, true);
 // This will contain: array('status' => 'Yes!' ---."<br />" ;
 
 $length = count($resultData);
 for($i=1;$i<$length;$i++)
 echo "<a href='$resultData[$i]'>"."$resultData[$i]"."</a>"."<br />" ;
 
-?> 
+?>
 
 
 	<footer class="navbar-default navbar-fixed-bottom" id="footer">
@@ -79,12 +79,12 @@ echo "<a href='$resultData[$i]'>"."$resultData[$i]"."</a>"."<br />" ;
 			<br>
 			<b>Design:</b><br>
 			Rajan garg<br>
-		
+
 	</footer>
 
 	<script type="text/javascript" src="jquery.js"> ></script>
-	<script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>	
-	 <script src="filestyle/src/bootstrap-filestyle.js"></script>	
+	<script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+	 <script src="filestyle/src/bootstrap-filestyle.js"></script>
 	<script type="text/javascript" src="main.js" ></script>
 
 </body>
