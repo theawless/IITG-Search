@@ -35,7 +35,7 @@ def search(search_keyword, radio):
             # print i.highlights('content')
             j += 1
 
-    suggestion = check_spelling_error(search_keyword, ix)
+    suggestion = check_spelling_error(search_keyword, ix, sel)
     end_time = time.time()
 
     final_result['time'] = str(end_time - start_time)
@@ -43,10 +43,13 @@ def search(search_keyword, radio):
     return final_result
 
 
-def check_spelling_error(mistyped_words, ix):
+def check_spelling_error(mistyped_words, ix, sel):
     query = QueryParser("content", ix.schema).parse(mistyped_words)
     with ix.searcher() as s:
-        corrector = s.corrector("title")
+        if sel == "content" :
+            corrector = s.corrector("data")
+        else:
+            corrector = s.corrector("title")
         corrected = s.correct_query(query, mistyped_words)
         if corrected.query != query:
             return corrected.string
